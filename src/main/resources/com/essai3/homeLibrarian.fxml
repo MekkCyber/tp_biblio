@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.HomeLibrarianController">
+    <top>
+        <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="35.0" prefWidth="200.0">
+                    <children>
+                        <Label prefHeight="47.0" prefWidth="95.0" text="  Bienvenue">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="prenom" alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="109.0" textAlignment="CENTER">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="924.0" text="EasyBiblio">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox prefHeight="349.0" prefWidth="201.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" prefHeight="42.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Accueil" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="70.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#getUsers" text="Utilisateurs" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="34.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Les Emprunts" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Emprunter" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Gérer les profils" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+            <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin" />
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Se déconnercter" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="200.0" />
+                    </VBox.margin>
+                </HBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0" />
+            </children></VBox>
+    </left>
+    <right>
+        <VBox prefHeight="618.0" prefWidth="1107.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="41.0" prefWidth="399.0">
+                    <children>
+                        <Label prefHeight="40.0" prefWidth="140.0" text="Liste des livres : " />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <TableView fx:id="table" prefHeight="350.0" prefWidth="984.0">
+                    <columns>
+                        <TableColumn fx:id="livre_id" prefWidth="29.0" text="id" />
+                        <TableColumn fx:id="titre" prefWidth="221.0" text="Titre" />
+                        <TableColumn fx:id="auteur" prefWidth="342.0" text="Auteur" />
+                        <TableColumn fx:id="parution" minWidth="0.0" prefWidth="69.0" text="Parution" />
+                        <TableColumn fx:id="mots_cles" minWidth="9.4000244140625" prefWidth="148.0" text="Mots_Clés" />
+                        <TableColumn fx:id="edition" prefWidth="97.0" text="Edition" />
+                        <TableColumn fx:id="quantite" prefWidth="76.0" text="quantite" />
+                        <TableColumn fx:id="isbn" minWidth="0.0" prefWidth="52.0" text="isbn" />
+                    </columns>
+                </TableView>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="274.0" text="Ajouter un livre">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>

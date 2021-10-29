@@ -1,0 +1,71 @@
+package com.essai3;
+
+import com.essai3.Dao.LivreDao;
+import com.essai3.beans.Livre;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class HomeController implements Initializable {
+    @FXML
+    public Label prenom;
+    @FXML
+    private TableView<Livre> table;
+    @FXML
+    private TableColumn<Livre,Integer> livre_id;
+    @FXML
+    private TableColumn<Livre,String> titre;
+    @FXML
+    private TableColumn<Livre,String> mots_cles;
+    @FXML
+    private TableColumn<Livre,Integer> parution;
+    @FXML
+    private TableColumn<Livre,String> auteur;
+    @FXML
+    private TableColumn<Livre,String> edition;
+    @FXML
+    private TableColumn<Livre, Integer> quantite;
+    @FXML
+    private TableColumn<Livre, String> isbn;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        livre_id.setCellValueFactory(new PropertyValueFactory<Livre,Integer>("id"));
+        titre.setCellValueFactory(new PropertyValueFactory<Livre,String>("titre"));
+        mots_cles.setCellValueFactory(new PropertyValueFactory<Livre,String>("mots_cles"));
+        auteur.setCellValueFactory(new PropertyValueFactory<Livre,String>("auteur"));
+        edition.setCellValueFactory(new PropertyValueFactory<Livre,String>("edition"));
+        parution.setCellValueFactory(new PropertyValueFactory<Livre,Integer>("parution"));
+        quantite.setCellValueFactory(new PropertyValueFactory<Livre,Integer>("quantite"));
+        isbn.setCellValueFactory(new PropertyValueFactory<Livre,String>("isbn"));
+        ObservableList list = FXCollections.observableArrayList();
+        list.add(new Livre(1,"r",2,"e",5,"d","j", "dd"));
+        try {
+            LivreDao.getData();
+            table.setItems(LivreDao.getData());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    public void setUserHome(String msg) throws IOException {
+            prenom.setText(msg);
+    }
+
+
+
+
+}

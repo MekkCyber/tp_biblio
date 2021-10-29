@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.UsersFromLibrarianHome">
+    <top>
+        <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="35.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="prenom" alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="109.0" textAlignment="CENTER">
+                            <font>
+                                <Font size="32.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            <Label alignment="CENTER" prefHeight="56.0" prefWidth="921.0" text="EasyBiblio">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox prefHeight="349.0" prefWidth="201.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" prefHeight="42.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#getLivres" text="Accueil" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="70.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Utilisateurs" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="201.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Les Emprunts" />
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Emprunter" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Gérer les profils" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Se déconnercter" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="200.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0" />
+            </children></VBox>
+    </left>
+    <right>
+        <VBox prefHeight="618.0" prefWidth="1107.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="41.0" prefWidth="399.0">
+                    <children>
+                        <Label prefHeight="40.0" prefWidth="163.0" text="Liste des Utilisateurs : " />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <TableView fx:id="table" prefHeight="350.0" prefWidth="984.0">
+                    <columns>
+                        <TableColumn fx:id="id" prefWidth="29.0" text="id" />
+                        <TableColumn fx:id="nom" prefWidth="167.0" text="Nom" />
+                        <TableColumn fx:id="prenom_" prefWidth="228.0" text="Prenom" />
+                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="123.0" text="email" />
+                        <TableColumn fx:id="catg" minWidth="9.4000244140625" prefWidth="262.0" text="Catégotie" />
+                        <TableColumn fx:id="date1emprunt" prefWidth="227.0" text="Date du premier emprunt" />
+                    </columns>
+                </TableView>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addUserForm" text="Ajouter un utilisateur">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>
