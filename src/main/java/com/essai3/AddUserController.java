@@ -5,6 +5,8 @@ import com.essai3.Dao.UtilisateurDao;
 import com.essai3.beans.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -22,6 +24,8 @@ public class AddUserController {
     private TextField date;
     @FXML
     private TextField catg;
+    @FXML
+    private BorderPane adduser;
 
     public Utilisateur getUserAdded() throws NoSuchAlgorithmException {
         String nom_ = nom.getText();
@@ -30,11 +34,13 @@ public class AddUserController {
         String pwd_ = pwd.getText();
         String catg_ = catg.getText();
         String date_ = date.getText();
-        return new Utilisateur(0,nom_,prenom_,email_, Hash.sha1(pwd_),catg_,date_);
+        return new Utilisateur(200,nom_,prenom_,email_, Hash.sha1(pwd_),catg_,date_);
     }
 
     public void addInDb() throws NoSuchAlgorithmException, SQLException, ClassNotFoundException {
         UtilisateurDao.addUtilisateur(getUserAdded());
+        Stage stage = (Stage) adduser.getScene().getWindow();
+        stage.close();
     }
 
 }

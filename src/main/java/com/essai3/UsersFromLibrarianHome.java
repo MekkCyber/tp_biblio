@@ -52,7 +52,6 @@ public class UsersFromLibrarianHome implements Initializable {
 //        ObservableList list = FXCollections.observableArrayList();
 //        list.add(new Livre(1,"r",2,"e",5,"d","j", "dd"));
         try {
-            LivreDao.getData();
             table.setItems(UtilisateurDao.getUsersData());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,6 +79,10 @@ public class UsersFromLibrarianHome implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 297, 390);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void refresh() throws SQLException, ClassNotFoundException {
+        table.setItems(UtilisateurDao.getUsersData());
     }
 
 
