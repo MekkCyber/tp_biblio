@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,6 +41,7 @@ public class UsersFromLibrarianHome implements Initializable {
     @FXML
     private BorderPane root;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         id.setCellValueFactory(new PropertyValueFactory<Utilisateur,Integer>("id"));
@@ -70,6 +72,7 @@ public class UsersFromLibrarianHome implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homeLibrarian.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1238, 688);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -78,6 +81,7 @@ public class UsersFromLibrarianHome implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 297, 390);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -85,6 +89,10 @@ public class UsersFromLibrarianHome implements Initializable {
         table.setItems(UtilisateurDao.getUsersData());
     }
 
+    public void close(){
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
+    }
 
 
 }

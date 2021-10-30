@@ -30,11 +30,22 @@ public class HelloLibrarianController {
             HomeLibrarianController controller = fxmlLoader.getController();
             controller.setLibrarianHome(LibrarianDao.authenticateLibrarian(email, passwdhash).get(2));
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
 
         } else {
             System.out.println("non");
         }
+    }
+
+    public void goback() throws IOException {
+        Stage stage = (Stage) root.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 650, 420);
+        stage.setTitle("EasyBiblio");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 
 }

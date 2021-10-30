@@ -20,6 +20,7 @@ public class InscrireApplication extends Application {
         stage.setScene(scene);
         InscrireController myController = new InscrireController();
         myController.setData();
+        stage.centerOnScreen();
         stage.show();
 
     }

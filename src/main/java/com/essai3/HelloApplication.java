@@ -18,6 +18,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 650, 420);
         stage.setTitle("EasyBiblio");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 

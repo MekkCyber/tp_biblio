@@ -35,6 +35,7 @@ public class HelloController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("helloLibrarian.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 300);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -43,6 +44,7 @@ public class HelloController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("inscrire.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 850, 450);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -53,10 +55,12 @@ public class HelloController {
         if (UtilisateurDao.authenticateUser(email, passwdhash)!=null){
             Stage stage = (Stage) root.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 850, 450);
+            Scene scene = new Scene(fxmlLoader.load(), 1320, 450);
             HomeController controller = fxmlLoader.getController();
             controller.setUserHome(UtilisateurDao.authenticateUser(email, passwdhash).get(2));
+            controller.setEmail(UtilisateurDao.authenticateUser(email, passwdhash).get(3));
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
 
         } else {

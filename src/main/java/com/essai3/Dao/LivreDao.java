@@ -1,6 +1,8 @@
 package com.essai3.Dao;
 
+import com.essai3.beans.Emprunt;
 import com.essai3.beans.Livre;
+import com.essai3.beans.Utilisateur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class LivreDao {
 
-    private static String SELECT_REQ = "SELECT livre.id, titre, quantite, mots_cles, parution, nom, prenom, editeur,isbn from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id" ;
+    private static String SELECT_REQ = "SELECT livre.id, titre, quantite, mots_cles, parution, nom, prenom, editeur,isbn from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id";
 
     public static void addLivre() throws SQLException, ClassNotFoundException {
         Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
@@ -32,7 +34,7 @@ public class LivreDao {
     public void deleteLivre(Livre livre) throws SQLException, ClassNotFoundException {
         Connection con = (new Db("dd.db").getConnection());
         PreparedStatement st = con.prepareStatement("delete from livre where id=?");
-        st.setInt(1,livre.getId());
+        st.setInt(1, livre.getId());
         st.executeUpdate();
         st.close();
         con.close();
@@ -74,4 +76,36 @@ public class LivreDao {
 //        }
 //        return titre;
 //    }
+
+    public static ObservableList getDataForUser(String email) throws SQLException, ClassNotFoundException {
+        ObservableList livres = FXCollections.observableArrayList();
+        ArrayList<String> already_treated_books = new ArrayList();
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("SELECT livre.id, titre,quantite, mots_cles, parution, auteur.nom, auteur.prenom, editeur,isbn, date_emprunt, date_retour, status, emprunt.id from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id join emprunt on emprunt.livre_id=edition.id join utilisateur on utilisateur.id=emprunt.utilisateur_id where utilisateur.email=?");
+        st.setString(1, email);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            if (!already_treated_books.contains(rs.getString("isbn"))) {
+                livres.add(new Emprunt(rs.getInt("id"), rs.getString("titre"), rs.getInt("quantite"),
+                        rs.getString("mots_cles"), rs.getInt("parution"), rs.getString("nom") + " " + rs.getString("prenom"),
+                        rs.getString("editeur"), rs.getString("isbn"),0,0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+                already_treated_books.add(rs.getString("isbn"));
+            } else {
+
+                Livre livre = Livre.findLivreByIsbn(rs.getString("isbn"), livres);
+                if (livre != null)
+                    livre.setAuteur(livre.getAuteur() + ", " + rs.getString("nom") + " " + rs.getString("prenom"));
+            }
+        }
+
+//        while (rs.next()) {
+//            livres.add(new Emprunt(rs.getInt("id"), rs.getString("titre"), rs.getInt("quantite"),
+//                        rs.getString("mots_cles"), rs.getInt("parution"), rs.getString("nom") + " " + rs.getString("prenom"),
+//                        rs.getString("editeur"), rs.getString("isbn"),3,2,1,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+//        }
+        rs.close();
+        st.close();
+        con.close();
+        return livres;
+    }
 }

@@ -23,9 +23,10 @@ public class UtilisateurDao {
             list.add(rs.getInt("id")+"");
             list.add(rs.getString("nom"));
             list.add(rs.getString("prenom"));
+            list.add(rs.getString("email"));
             list.add(rs.getString("passwdhash"));
         }
-        if(list.get(3).equals(Hash.sha1(passwdhash))){
+        if(list.get(4).equals(Hash.sha1(passwdhash))){
             rs.close();
             st.close();
             con.close();

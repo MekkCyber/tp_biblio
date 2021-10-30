@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.HomeController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.HomeController">
    <top>
       <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,14 +21,24 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="prenom" prefHeight="51.0" prefWidth="91.0">
-                     <font>
-                        <Font size="32.0" />
-                     </font>
-                  </Label>
+                  <HBox prefHeight="41.0" prefWidth="96.0">
+                     <children>
+                        <Label fx:id="prenom" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="87.0">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                  </HBox>
                </children>
             </HBox>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="510.0" text="EasyBiblio">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="976.0" text="EasyBiblio">
                <font>
                   <Font size="30.0" />
                </font>
@@ -73,7 +83,10 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                <children>
-                  <Button mnemonicParsing="false" text="Se déconnercter" />
+                  <Button mnemonicParsing="false" onAction="#seDeconnecter" text="Se déconnercter">
+                     <HBox.margin>
+                        <Insets top="-250.0" />
+                     </HBox.margin></Button>
                </children>
                <VBox.margin>
                   <Insets top="200.0" />
@@ -82,26 +95,28 @@
          </children></VBox>
    </left>
    <right>
-      <VBox prefHeight="554.0" prefWidth="691.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="496.0" prefWidth="1150.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="41.0" prefWidth="399.0">
                <children>
-                  <Label prefHeight="40.0" prefWidth="140.0" text="Livres empruntés :" />
+                  <Label prefHeight="40.0" prefWidth="139.0" text="Livres empruntés :" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="table" prefHeight="350.0" prefWidth="601.0">
+            <TableView fx:id="table" prefHeight="351.0" prefWidth="970.0">
               <columns>
                 <TableColumn fx:id="livre_id" prefWidth="21.399994671344757" text="id" />
                 <TableColumn fx:id="titre" prefWidth="134.99999618530273" text="Titre" />
-                  <TableColumn fx:id="auteur" prefWidth="199.19996643066406" text="Auteur" />
-                  <TableColumn fx:id="parution" minWidth="0.800048828125" prefWidth="59.4000244140625" text="Parution" />
-                  <TableColumn fx:id="mots_cles" minWidth="9.4000244140625" prefWidth="9.4000244140625" text="Mots_Clés" />
-                  <TableColumn fx:id="edition" prefWidth="52.5999755859375" text="Edition" />
-                  <TableColumn fx:id="quantite" prefWidth="34.79998779296875" text="quantite" />
-                  <TableColumn fx:id="isbn" prefWidth="237.199951171875" text="isbn" />
+                  <TableColumn fx:id="auteur" prefWidth="163.0" text="Auteur" />
+                  <TableColumn fx:id="parution" minWidth="0.800048828125" prefWidth="89.0" text="Parution" />
+                  <TableColumn fx:id="mots_cles" minWidth="0.0" prefWidth="138.0" text="Mots_Clés" />
+                  <TableColumn fx:id="edition" minWidth="0.0" prefWidth="102.0" text="Edition" />
+                  <TableColumn fx:id="isbn" prefWidth="53.0" text="isbn" />
+                  <TableColumn fx:id="date_emprunt" prefWidth="167.0" text="Date emprunt" />
+                  <TableColumn fx:id="date_retour" prefWidth="158.0" text="Date Retour" />
+                  <TableColumn fx:id="returned" prefWidth="85.0" text="Returned" />
               </columns>
             </TableView>
          </children>
