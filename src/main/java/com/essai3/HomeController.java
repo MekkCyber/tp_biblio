@@ -102,6 +102,8 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
 
+
+
     }
     public void seDeconnecter() throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
@@ -113,6 +115,26 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
+
+    public void afficherLivres() throws IOException {
+        Stage stage = (Stage) root.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homeUserLivre.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1300, 500);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void emprunter() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("emprunter.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 650, 420);
+        stage.setTitle("EasyBiblio");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
 
 }
 

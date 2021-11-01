@@ -41,7 +41,7 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="42.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Accueil" />
+                        <Button mnemonicParsing="false"  text="Accueil" />
                     </children>
                     <VBox.margin>
                         <Insets top="70.0" />
@@ -49,10 +49,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="43.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#getUsers" text="Utilisateurs">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#getUsers" text="Utilisateurs" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -60,10 +57,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="34.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Les Emprunts">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#getEmprunts" text="Les Emprunts" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -71,10 +65,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Emprunter">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin></Button>
+                        <Button mnemonicParsing="false" text="Emprunter" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -82,38 +73,37 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Gérer les profils">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin></Button>
+                        <Button mnemonicParsing="false" text="Gérer les profils" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </HBox>
-            <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin">
-                     <HBox.margin>
+                <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin" />
+                    </children>
+                    <VBox.margin>
                         <Insets top="5.0" />
-                     </HBox.margin></Button>
-               </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </HBox>
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="35.0" prefWidth="198.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#addUserForm" text="Ajouter un utilisateur" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                    </VBox.margin>
+                </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#seDeconnecter" text="Se déconnercter">
-                     <HBox.margin>
-                        <Insets top="-100.0" />
-                     </HBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#seDeconnecter" text="Se déconnercter" />
                     </children>
                     <VBox.margin>
                         <Insets top="200.0" />
                     </VBox.margin>
                 </HBox>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0" />
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0" />
             </children></VBox>
     </left>
     <right>

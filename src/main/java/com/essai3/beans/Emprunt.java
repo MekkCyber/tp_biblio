@@ -24,6 +24,7 @@ public class Emprunt extends Livre{
 
     public int getId() {
         return emprunt_id.get();
+
     }
 
     public SimpleIntegerProperty idProperty() {
@@ -101,5 +102,7 @@ public class Emprunt extends Livre{
             }
         }
         return null;
+
     }
+
 }

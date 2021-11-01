@@ -52,7 +52,7 @@
                 </HBox>
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="201.0">
                <children>
-                  <Button mnemonicParsing="false" text="Les Emprunts" />
+                  <Button mnemonicParsing="false" onAction="#getEmprunts" text="Les Emprunts" />
                </children>
                <VBox.margin>
                   <Insets top="5.0" />
@@ -92,7 +92,7 @@
             </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Se déconnercter" />
+                        <Button mnemonicParsing="false" onAction="#seDeconnecter" text="Se déconnercter" />
                     </children>
                     <VBox.margin>
                         <Insets top="200.0" />

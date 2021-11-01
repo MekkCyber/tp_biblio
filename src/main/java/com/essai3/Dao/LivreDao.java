@@ -81,14 +81,14 @@ public class LivreDao {
         ObservableList livres = FXCollections.observableArrayList();
         ArrayList<String> already_treated_books = new ArrayList();
         Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
-        PreparedStatement st = con.prepareStatement("SELECT livre.id, titre,quantite, mots_cles, parution, auteur.nom, auteur.prenom, editeur,isbn, date_emprunt, date_retour, status, emprunt.id from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id join emprunt on emprunt.livre_id=edition.id join utilisateur on utilisateur.id=emprunt.utilisateur_id where utilisateur.email=?");
+        PreparedStatement st = con.prepareStatement("SELECT livre.id, titre,quantite, mots_cles, parution, auteur.nom, auteur.prenom, editeur,isbn, date_emprunt, date_retour, status, emprunt_id from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id join emprunt on emprunt.edition_id=edition.id join utilisateur on utilisateur.id=emprunt.utilisateur_id where utilisateur.email=?");
         st.setString(1, email);
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             if (!already_treated_books.contains(rs.getString("isbn"))) {
                 livres.add(new Emprunt(rs.getInt("id"), rs.getString("titre"), rs.getInt("quantite"),
                         rs.getString("mots_cles"), rs.getInt("parution"), rs.getString("nom") + " " + rs.getString("prenom"),
-                        rs.getString("editeur"), rs.getString("isbn"),0,0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+                        rs.getString("editeur"), rs.getString("isbn"),rs.getInt("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
                 already_treated_books.add(rs.getString("isbn"));
             } else {
 
@@ -108,4 +108,6 @@ public class LivreDao {
         con.close();
         return livres;
     }
+
+
 }

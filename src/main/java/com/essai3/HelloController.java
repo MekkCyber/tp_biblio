@@ -49,6 +49,14 @@ public class HelloController {
     }
 
 
+    public TextField getPwd() {
+        return pwd;
+    }
+
+    public TextField getEmail() {
+        return email;
+    }
+
     public void authenticate() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, IOException {
         String email = this.email.getText();
         String passwdhash = this.pwd.getText();
