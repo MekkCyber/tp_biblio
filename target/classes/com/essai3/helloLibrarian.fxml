@@ -55,14 +55,14 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="back" onDragDetected="#goback" prefHeight="36.0" prefWidth="78.0" text="Go back">
+            <Button fx:id="back" onAction="#goback" prefHeight="36.0" prefWidth="90.0" text="Go back">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
-            </Label>
+            </Button>
          </children>
       </HBox>
    </children>

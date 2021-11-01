@@ -60,7 +60,7 @@
             </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Emprunter" />
+                        <Button mnemonicParsing="false" onAction="#emprunter" text="Emprunter" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -76,7 +76,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin" />
+                        <Button mnemonicParsing="false" prefHeight="31.0" onAction="#addLibrarianForm" prefWidth="117.0" text="Ajouter Admin" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />

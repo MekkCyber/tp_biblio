@@ -1,5 +1,8 @@
 package com.essai3.Dao;
 
+import com.essai3.beans.Librarian;
+import com.essai3.beans.Utilisateur;
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +33,18 @@ public class LibrarianDao {
         st.close();
         con.close();
         return null;
+    }
+
+    public static void addLibrarian(Librarian user) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("insert into librarian (nom, prenom,email,passdhash) values(?,?,?,?)");
+        st.setString(1,user.getNom());
+        st.setString(2,user.getPrenom());
+        st.setString(3,user.getEmail());
+        st.setString(4,user.getPasswdhash());
+        st.executeUpdate();
+        st.close();
+        con.close();
     }
 }
 

@@ -6,8 +6,10 @@ import com.essai3.beans.Utilisateur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.net.Inet4Address;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LivreDao {
 
@@ -81,7 +83,7 @@ public class LivreDao {
         ObservableList livres = FXCollections.observableArrayList();
         ArrayList<String> already_treated_books = new ArrayList();
         Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
-        PreparedStatement st = con.prepareStatement("SELECT livre.id, titre,quantite, mots_cles, parution, auteur.nom, auteur.prenom, editeur,isbn, date_emprunt, date_retour, status, emprunt_id from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id join emprunt on emprunt.edition_id=edition.id join utilisateur on utilisateur.id=emprunt.utilisateur_id where utilisateur.email=?");
+        PreparedStatement st = con.prepareStatement("SELECT livre.id, titre,quantite, mots_cles, parution, auteur.nom, auteur.prenom, editeur,isbn, date_emprunt, date_retour, status, emprunt_id from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id join emprunt on emprunt.edition_id=edition.edition_id join utilisateur on utilisateur.id=emprunt.utilisateur_id where utilisateur.email=?");
         st.setString(1, email);
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
@@ -109,5 +111,37 @@ public class LivreDao {
         return livres;
     }
 
+    public static HashMap qtLivresRestants() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        Statement st = con.createStatement();
+        HashMap<Integer, Integer> qt_totale = new HashMap<Integer,Integer>();
+        HashMap<Integer, Integer> qt_restante = new HashMap<Integer,Integer>();
+        ResultSet rs = st.executeQuery("select livre.id, quantite from  livre");
+        while(rs.next()){
+            qt_totale.put(rs.getInt("id"),rs.getInt("quantite"));
+        }
+        for (int livre_id : qt_totale.keySet()){
+            PreparedStatement pst = con.prepareStatement("select count(*) as qt from emprunt join edition on edition.edition_id" +
+                    "=emprunt.edition_id join livre on livre.id=edition.livre_id where status=\"no\" and livre_id=?");
+            pst.setInt(1,livre_id);
+            ResultSet rs_=pst.executeQuery();
+            qt_restante.put(livre_id,qt_totale.get(livre_id)-rs_.getInt("qt"));
+        }
+        return qt_restante;
+    }
 
+    public static ObservableList showQuantiteRestantes() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        Statement st = con.createStatement();
+        ObservableList livres = FXCollections.observableArrayList();
+        HashMap<Integer,Integer> qt_restants = qtLivresRestants();
+        ResultSet rs = st.executeQuery("select livre.id, titre from livre ");
+        while (rs.next()) {
+            if (qt_restants.get(rs.getInt("id")) != null){
+                int qt_restant = qt_restants.get(rs.getInt("id")).intValue();
+                livres.add(new Livre(rs.getInt("id"),rs.getString("titre"),qt_restant,"",0,"","",""));
+            }
+        }
+        return livres;
+    }
 }

@@ -114,5 +114,22 @@ public class UsersFromLibrarianHome implements Initializable {
         stage.show();
     }
 
+    public void addLibrarianForm() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addAdmin.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 297, 300);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void emprunter() throws IOException {
+        Stage stage = (Stage) root.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("emprunterLibrarian.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1238, 688);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
 
 }
