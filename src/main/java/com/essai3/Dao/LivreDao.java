@@ -2,11 +2,9 @@ package com.essai3.Dao;
 
 import com.essai3.beans.Emprunt;
 import com.essai3.beans.Livre;
-import com.essai3.beans.Utilisateur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.net.Inet4Address;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,14 +117,21 @@ public class LivreDao {
         ResultSet rs = st.executeQuery("select livre.id, quantite from  livre");
         while(rs.next()){
             qt_totale.put(rs.getInt("id"),rs.getInt("quantite"));
+
         }
+        rs.close();
+        st.close();
         for (int livre_id : qt_totale.keySet()){
             PreparedStatement pst = con.prepareStatement("select count(*) as qt from emprunt join edition on edition.edition_id" +
                     "=emprunt.edition_id join livre on livre.id=edition.livre_id where status=\"no\" and livre_id=?");
             pst.setInt(1,livre_id);
             ResultSet rs_=pst.executeQuery();
             qt_restante.put(livre_id,qt_totale.get(livre_id)-rs_.getInt("qt"));
+            rs_.close();
+            pst.close();
+
         }
+        con.close();
         return qt_restante;
     }
 
@@ -142,6 +147,67 @@ public class LivreDao {
                 livres.add(new Livre(rs.getInt("id"),rs.getString("titre"),qt_restant,"",0,"","",""));
             }
         }
+        rs.close();
+        st.close();
+        con.close();
         return livres;
     }
+
+    public static int findLivreEditionId(String isbn) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from edition where isbn=?");
+        st.setString(1,isbn);
+        ResultSet rs = st.executeQuery();
+        int id = rs.getInt("edition_id");
+        rs.close();
+        st.close();
+        con.close();
+        return id;
+    }
+
+    public static ObservableList getLivresDisponibles() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        ObservableList livre_restants = FXCollections.observableArrayList();
+        HashMap<Integer,Integer> qt_restante=qtLivresRestants();
+        for (int id : qt_restante.keySet()){
+            if (qt_restante.get(id)>0){
+                Statement st_ = con.createStatement();
+                ResultSet rs = st_.executeQuery("select titre from livre where id="+id);
+                livre_restants.add(rs.getString("titre"));
+                rs.close();
+                st_.close();
+            }
+        }
+        con.close();
+        return livre_restants;
+    }
+
+    public static ObservableList getLivresTitres() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select titre from livre ");
+        ObservableList livre_titres = FXCollections.observableArrayList();
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            livre_titres.add(rs.getString("titre"));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return livre_titres;
+    }
+    public static ObservableList getIsbns() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select isbn from edition join livre on livre_id=livre.id");
+        ObservableList isbn = FXCollections.observableArrayList();
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            isbn.add(rs.getString("isbn"));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return isbn;
+    }
+
+
 }

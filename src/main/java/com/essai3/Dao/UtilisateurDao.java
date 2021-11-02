@@ -66,4 +66,29 @@ public class UtilisateurDao {
         st.close();
         con.close();
     }
+
+    public static int findUserId(String email) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from utilisateur where email=?");
+        st.setString(1,email);
+        ResultSet rs = st.executeQuery();
+        int id = rs.getInt("id");
+        rs.close();
+        st.close();
+        con.close();
+        return id;
+    }
+
+    public static String findCatg(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from utilisateur where id=?");
+        st.setInt(1,id);
+        ResultSet rs = st.executeQuery();
+        String catg = rs.getString("catg");
+        rs.close();
+        st.close();
+        con.close();
+        return catg;
+    }
+
 }

@@ -42,12 +42,7 @@ public class InscrireController implements Initializable{
         coutries_list.add("Andora");
         return coutries_list;
     }
-
-
-
     public void setData() throws IOException {
-
-
     }
 
     @Override

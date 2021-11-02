@@ -26,7 +26,7 @@ public class HelloLibrarianController {
         if (LibrarianDao.authenticateLibrarian(email, passwdhash)!=null){
             Stage stage = (Stage) root.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homeLibrarian.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1250, 600);
+            Scene scene = new Scene(fxmlLoader.load(), 1238, 688);
             HomeLibrarianController controller = fxmlLoader.getController();
             controller.setLibrarianHome(LibrarianDao.authenticateLibrarian(email, passwdhash).get(2));
             stage.setScene(scene);
