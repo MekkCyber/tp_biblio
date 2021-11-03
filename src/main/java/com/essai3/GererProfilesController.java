@@ -1,15 +1,15 @@
 package com.essai3;
 
+import com.essai3.Dao.EmpruntDao;
 import com.essai3.Dao.UtilisateurDao;
+import com.essai3.beans.DemandeEmprunt;
 import com.essai3.beans.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -26,7 +26,15 @@ public class GererProfilesController implements Initializable {
     @FXML
     private TextArea info_;
     @FXML
-    private TableView table;
+    private TableView<DemandeEmprunt> table;
+    @FXML
+    private TableColumn<DemandeEmprunt,Integer> id_demande;
+    @FXML
+    private TableColumn<DemandeEmprunt,Integer> id_livre;
+    @FXML
+    private TableColumn<DemandeEmprunt,String> titre;
+    @FXML
+    private TableColumn<DemandeEmprunt,String> date;
     @FXML
     private BorderPane root;
 
@@ -47,6 +55,7 @@ public class GererProfilesController implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
     public void showProfile() throws SQLException, ClassNotFoundException {
         String email = (String) this.email.getValue();
@@ -58,6 +67,17 @@ public class GererProfilesController implements Initializable {
                     "email : "+user.getEmail()+"\n"+
                     "Catégorie : "+ user.getCatg()+"\n"+
                     "Date du premier emprunt : "+date_premier_emprunt);
+        id_demande.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,Integer>("id_demande"));
+        id_livre.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,Integer>("id_utilisateur"));
+        titre.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,String>("titre"));
+        date.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,String>("date"));
+        try {
+            table.setItems(EmpruntDao.getDemandeEmpruntForUser(email));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateCatg() throws SQLException, ClassNotFoundException {

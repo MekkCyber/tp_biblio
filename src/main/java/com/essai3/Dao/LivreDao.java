@@ -223,4 +223,15 @@ public class LivreDao {
         return livre_ids;
     }
 
+    public static String findLivreTitre(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from livre where id=?");
+        st.setInt(1,id);
+        ResultSet rs = st.executeQuery();
+        String titre = rs.getString("titre");
+        rs.close();
+        st.close();
+        con.close();
+        return titre;
+    }
 }

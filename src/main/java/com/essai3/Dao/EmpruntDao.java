@@ -1,5 +1,6 @@
 package com.essai3.Dao;
 
+import com.essai3.beans.DemandeEmprunt;
 import com.essai3.beans.Emprunt;
 import com.essai3.beans.Utilisateur;
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class EmpruntDao {
 
     public static void addDemandeEmprunt(HashMap<String,String> emprunt) throws SQLException, ClassNotFoundException {
         Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
-        PreparedStatement st = con.prepareStatement("insert into demande_emprunt (id_utilisateur,id_livre,date) values(?,?,?)");
+        PreparedStatement st = con.prepareStatement("insert into demade_emprunt (id_utilisateur,id_livre,date) values(?,?,?)");
         st.setInt(1,Integer.parseInt(emprunt.get("id_utilisateur")));
         st.setInt(2,Integer.parseInt(emprunt.get("id_livre")));
         st.setString(3,emprunt.get("date"));
@@ -48,5 +49,19 @@ public class EmpruntDao {
         con.close();
     }
 
+    public static ObservableList getDemandeEmpruntForUser(String email) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from demade_emprunt where id_utilisateur=?");
+        ObservableList demandes = FXCollections.observableArrayList();
+        st.setInt(1,UtilisateurDao.findUserId(email));
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            demandes.add(new DemandeEmprunt(rs.getInt("id_demande"),rs.getInt("id_livre"),LivreDao.findLivreTitre(rs.getInt("id_livre")),rs.getString("date")));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return demandes;
+    }
 
 }

@@ -22,7 +22,7 @@ public class EmprunterController implements Initializable {
     @FXML
     private VBox root;
     @FXML
-    private ComboBox titre;
+    private ComboBox livre;
     @FXML
     private TextField email;
     @FXML
@@ -39,7 +39,7 @@ public class EmprunterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            titre.getItems().addAll(LivreDao.getLivresDisponibles());
+            livre.getItems().addAll(LivreDao.getLivresDisponibles());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -56,15 +56,16 @@ public class EmprunterController implements Initializable {
     }
 
     public void demanderEmprunt() throws SQLException, ClassNotFoundException {
-        String titre = (String) this.titre.getValue();
+        String titre = (String) this.livre.getValue();
         String email = this.email.getText();
-        int id = (int) this.id.getValue();
+        String id = (String) this.id.getValue();
         Date date_demande = new Date();
         HashMap<String,String> demade_emprunt = new HashMap<>();
         demade_emprunt.put("id_utilisateur", UtilisateurDao.findUserId(email) +"");
         demade_emprunt.put("id_livre",id+"");
         demade_emprunt.put("date",date_demande.toString());
         EmpruntDao.addDemandeEmprunt(demade_emprunt);
-
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
     }
 }
