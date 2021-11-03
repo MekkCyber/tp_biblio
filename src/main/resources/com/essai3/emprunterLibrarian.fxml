@@ -173,13 +173,27 @@
                                     <Font size="19.0" />
                                  </font>
                               </Label>
+                              <HBox prefHeight="69.0" prefWidth="512.0">
+                                 <children>
+                                    <Label prefHeight="49.0" prefWidth="69.0" text="id : ">
+                                       <HBox.margin>
+                                          <Insets top="6.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField>
+                                       <HBox.margin>
+                                          <Insets top="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
                               <HBox prefHeight="39.0" prefWidth="403.0">
                                  <children>
                                     <Label prefHeight="28.0" prefWidth="69.0" text="Nom :" />
                                     <TextField fx:id="nom_" />
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </HBox>
                               <HBox prefHeight="39.0" prefWidth="1039.0">
@@ -187,18 +201,27 @@
                                     <Label prefHeight="29.0" prefWidth="69.0" text="Prenom :" />
                                     <TextField fx:id="prenom_" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
                               </HBox>
                               <HBox prefHeight="36.0" prefWidth="1039.0">
                                  <children>
                                     <Label prefHeight="28.0" prefWidth="101.0" text="Titre du livre :" />
                                     <ComboBox fx:id="livre_" prefHeight="31.0" prefWidth="211.0" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
                               </HBox>
                               <HBox prefHeight="39.0" prefWidth="1039.0">
                                  <children>
                                     <Label prefHeight="29.0" prefWidth="69.0" text="Isbn :" />
                                     <ComboBox fx:id="isbn_" prefHeight="31.0" prefWidth="79.0" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>

@@ -42,7 +42,7 @@ public class HelloController {
     public void getInscription() throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("inscrire.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 850, 450);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 450);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
@@ -72,7 +72,12 @@ public class HelloController {
             stage.show();
 
         } else {
-            System.out.println("non");
+            Stage stage_ = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("incorrect.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 492, 160);
+            stage_.setScene(scene);
+            stage_.centerOnScreen();
+            stage_.show();
         }
     }
 }

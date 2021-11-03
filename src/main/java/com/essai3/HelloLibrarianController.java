@@ -34,7 +34,12 @@ public class HelloLibrarianController {
             stage.show();
 
         } else {
-            System.out.println("non");
+            Stage stage_ = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("incorrect.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 492, 160);
+            stage_.setScene(scene);
+            stage_.centerOnScreen();
+            stage_.show();
         }
     }
 

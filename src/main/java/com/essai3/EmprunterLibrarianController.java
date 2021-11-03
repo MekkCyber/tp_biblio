@@ -199,4 +199,8 @@ public class EmprunterLibrarianController implements Initializable {
     public void addInDb() throws NoSuchAlgorithmException, SQLException, ClassNotFoundException {
         EmpruntDao.addEmprunt(getEmpruntAdded());
     }
+
+    public void returnLivre(){
+
+    }
 }

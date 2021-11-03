@@ -36,6 +36,8 @@ public class EmpruntsController implements Initializable {
     private TableColumn<Emprunt,String> date_retour;
     @FXML
     private TableColumn<Emprunt,String> isbn;
+    @FXML
+    private TableColumn<Emprunt,Integer> id;
 
     public void getLivres() throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
@@ -101,6 +103,7 @@ public class EmpruntsController implements Initializable {
         date_emprunt.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_emprunt"));
         date_retour.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_retour"));
         utilisateur.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("auteur"));
+        id.setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("emprunt_id"));
         try {
             table.setItems(EmpruntDao.showEmprunts());
         } catch (SQLException e) {

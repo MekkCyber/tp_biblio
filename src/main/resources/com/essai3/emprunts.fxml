@@ -76,7 +76,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" onAction="#addLibrarianForm" prefWidth="117.0" text="Ajouter Admin" />
+                        <Button mnemonicParsing="false" onAction="#addLibrarianForm" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -114,12 +114,13 @@
                 </HBox>
                 <TableView fx:id="table" prefHeight="350.0" prefWidth="984.0">
                     <columns>
-                        <TableColumn fx:id="titre" prefWidth="260.0" text="Titre" />
-                        <TableColumn fx:id="utilisateur" prefWidth="223.0" text="utilisateur" />
-                        <TableColumn fx:id="isbn" minWidth="0.0" prefWidth="56.0" text="isbn" />
-                        <TableColumn fx:id="date_emprunt" minWidth="9.4000244140625" prefWidth="206.0" text="Date emprunt" />
-                        <TableColumn fx:id="date_retour" prefWidth="200.0" text="Date retour" />
-                        <TableColumn fx:id="status" prefWidth="93.0" text="statut" />
+                  <TableColumn fx:id="id" prefWidth="93.0" text="Emprunt id" />
+                        <TableColumn fx:id="titre" prefWidth="207.0" text="Titre" />
+                        <TableColumn fx:id="utilisateur" prefWidth="230.0" text="utilisateur" />
+                        <TableColumn fx:id="isbn" minWidth="0.0" prefWidth="75.0" text="isbn" />
+                        <TableColumn fx:id="date_emprunt" minWidth="9.4000244140625" prefWidth="180.0" text="Date emprunt" />
+                        <TableColumn fx:id="date_retour" minWidth="0.0" prefWidth="175.0" text="Date retour" />
+                        <TableColumn fx:id="status" prefWidth="77.0" text="statut" />
                     </columns>
                 </TableView>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
