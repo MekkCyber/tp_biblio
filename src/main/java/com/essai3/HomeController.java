@@ -18,11 +18,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class HomeController implements Initializable {
-    String email;
+public class HomeController {
+    public  String email;
+    public  String pwd;
+
     @FXML
     public Label prenom;
     @FXML
@@ -50,8 +54,57 @@ public class HomeController implements Initializable {
     @FXML
     private BorderPane root;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public TableView<Emprunt> getTable() {
+        return table;
+    }
+
+    public TableColumn<Emprunt, Integer> getLivre_id() {
+        return livre_id;
+    }
+
+    public TableColumn<Emprunt, String> getTitre() {
+        return titre;
+    }
+
+    public TableColumn<Emprunt, String> getMots_cles() {
+        return mots_cles;
+    }
+
+    public TableColumn<Emprunt, Integer> getParution() {
+        return parution;
+    }
+
+    public TableColumn<Emprunt, String> getAuteur() {
+        return auteur;
+    }
+
+    public TableColumn<Emprunt, String> getEdition() {
+        return edition;
+    }
+
+    public TableColumn<Emprunt, String> getIsbn() {
+        return isbn;
+    }
+
+    public TableColumn<Emprunt, String> getDate_emprunt() {
+        return date_emprunt;
+    }
+
+    public TableColumn<Emprunt, String> getDate_retour() {
+        return date_retour;
+    }
+
+    public TableColumn<Emprunt, String> getReturned() {
+        return returned;
+    }
+
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    //@Override
+    //public void initialize(URL url, ResourceBundle resourceBundle) {
+
 //        livre_id.setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("id"));
 //        titre.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("titre"));
 //        mots_cles.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("mots_cles"));
@@ -62,49 +115,37 @@ public class HomeController implements Initializable {
 //        date_emprunt.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_emprunt"));
 //        date_retour.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_retour"));
 //        returned.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("status"));
-//
-//        ObservableList list = FXCollections.observableArrayList();
+//        //HelloController controller = new HelloController();
+//        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource("hello-view.fxml"));
 //        try {
-//            LivreDao.getData();
+//            Scene scene = new Scene(loader.load(), 1320, 450);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        HelloController controller = loader.getController();
+//        email=controller.email_;
+//        System.out.println(controller.getEmail_());
+//        System.out.println(email);
+//
+//        HelloController controller1 = new HelloController();
+//        email= controller1.getEmail_();
+//        System.out.println(email);
+//
+//        email=controller1.map.get("email");
+//        System.out.println(email);
+//        try {
 //            table.setItems(LivreDao.getDataForUser(email));
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        } catch (ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
-
-    }
+ //   }
     @FXML
     public void setUserHome(String msg) throws IOException {
-            prenom.setText(msg);
+        //prenom.setText(msg);
     }
 
-    public void setEmail(String email) {
-        this.email=email;
-        livre_id.setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("id"));
-        titre.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("titre"));
-        mots_cles.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("mots_cles"));
-        auteur.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("auteur"));
-        edition.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("edition"));
-        parution.setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("parution"));
-        isbn.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("isbn"));
-        date_emprunt.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_emprunt"));
-        date_retour.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_retour"));
-        returned.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("status"));
-
-        ObservableList list = FXCollections.observableArrayList();
-        try {
-            LivreDao.getData();
-            table.setItems(LivreDao.getDataForUser(email));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-
-    }
     public void seDeconnecter() throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
@@ -120,9 +161,15 @@ public class HomeController implements Initializable {
         Stage stage = (Stage) root.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homeUserLivre.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1300, 500);
+        HomeUserLivreController controller = fxmlLoader.getController();
+        controller.email_=email;
+        controller.pwd_=pwd;
+        System.out.println(controller.email_);
+        System.out.println(email);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+
     }
 
     public void emprunter() throws IOException {

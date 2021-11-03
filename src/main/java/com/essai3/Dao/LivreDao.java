@@ -209,5 +209,18 @@ public class LivreDao {
         return isbn;
     }
 
+    public static ObservableList getLivresid() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select id from livre ");
+        ObservableList livre_ids = FXCollections.observableArrayList();
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            livre_ids.add(rs.getString("id"));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return livre_ids;
+    }
 
 }

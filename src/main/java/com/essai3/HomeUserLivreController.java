@@ -2,6 +2,7 @@ package com.essai3;
 
 import com.essai3.Dao.LivreDao;
 import com.essai3.Dao.UtilisateurDao;
+import com.essai3.beans.Emprunt;
 import com.essai3.beans.Livre;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +39,8 @@ public class HomeUserLivreController implements Initializable {
     private TableColumn<Livre, String> isbn;
     @FXML
     private BorderPane root;
-
+    public String email_;
+    public String pwd_;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         livre_id.setCellValueFactory(new PropertyValueFactory<Livre,Integer>("id"));
@@ -88,11 +90,24 @@ public class HomeUserLivreController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("home.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1320, 450);
         HomeController controller = fxmlLoader.getController();
-        HelloController controller1=fxmlLoader.getController();
-        String email= controller1.getEmail().getText();
-        String passwdhash = controller1.getPwd().getText();
-        controller.setUserHome(UtilisateurDao.authenticateUser(email, passwdhash).get(2));
-        controller.setEmail(UtilisateurDao.authenticateUser(email, passwdhash).get(3));
+        controller.setUserHome("mmmm");
+        controller.getLivre_id().setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("id"));
+        controller.getTitre().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("titre"));
+        controller.getMots_cles().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("mots_cles"));
+        controller.getAuteur().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("auteur"));
+        controller.getEdition().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("edition"));
+        controller.getParution().setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("parution"));
+        controller.getIsbn().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("isbn"));
+        controller.getDate_emprunt().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_emprunt"));
+        controller.getDate_retour().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_retour"));
+        controller.getReturned().setCellValueFactory(new PropertyValueFactory<Emprunt,String>("status"));
+        try {
+            controller.getTable().setItems(LivreDao.getDataForUser(email_));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();

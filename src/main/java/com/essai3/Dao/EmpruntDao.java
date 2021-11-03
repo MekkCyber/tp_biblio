@@ -37,5 +37,16 @@ public class EmpruntDao {
         con.close();
     }
 
+    public static void addDemandeEmprunt(HashMap<String,String> emprunt) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("insert into demande_emprunt (id_utilisateur,id_livre,date) values(?,?,?)");
+        st.setInt(1,Integer.parseInt(emprunt.get("id_utilisateur")));
+        st.setInt(2,Integer.parseInt(emprunt.get("id_livre")));
+        st.setString(3,emprunt.get("date"));
+        st.executeUpdate();
+        st.close();
+        con.close();
+    }
+
 
 }

@@ -148,9 +148,10 @@
                         </Label>
                         <TableView fx:id="table" prefHeight="200.0" prefWidth="685.0">
                           <columns>
-                            <TableColumn fx:id="id_demande" prefWidth="126.0" text="id_demande" />
-                              <TableColumn fx:id="id_livre" prefWidth="117.0" text="id_livre" />
-                            <TableColumn fx:id="titre" prefWidth="385.0" text="Titre" />
+                            <TableColumn fx:id="id_demande" prefWidth="93.0" text="id_demande" />
+                              <TableColumn fx:id="id_livre" prefWidth="69.0" text="id_livre" />
+                            <TableColumn fx:id="titre" prefWidth="251.0" text="Titre" />
+                              <TableColumn fx:id="date" prefWidth="215.0" text="Date de demande " />
                           </columns>
                            <VBox.margin>
                               <Insets left="10.0" />
