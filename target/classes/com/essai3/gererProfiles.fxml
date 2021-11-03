@@ -2,27 +2,21 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.EmpruntsController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.GererProfilesController">
     <top>
         <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox prefHeight="35.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="prenom" alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="109.0" textAlignment="CENTER">
-                            <font>
-                                <Font size="17.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                <HBox prefHeight="35.0" prefWidth="200.0" />
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="924.0" text="EasyBiblio">
                     <font>
                         <Font size="30.0" />
@@ -52,7 +46,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="34.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Les Emprunts" />
+                        <Button mnemonicParsing="false" onAction="#getEmprunts" text="Les Emprunts" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -68,7 +62,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#gerer" text="Gérer les profils" />
+                        <Button mnemonicParsing="false" text="Gérer les profils" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -102,29 +96,74 @@
             </children></VBox>
     </left>
     <right>
-        <VBox prefHeight="618.0" prefWidth="1107.0" BorderPane.alignment="CENTER">
-            <children>
-                <HBox prefHeight="41.0" prefWidth="399.0">
-                    <children>
-                        <Label prefHeight="40.0" prefWidth="140.0" text="Liste des emprunts : " />
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </VBox.margin>
-                </HBox>
-                <TableView fx:id="table" prefHeight="350.0" prefWidth="984.0">
-                    <columns>
-                        <TableColumn fx:id="emprunt_id" prefWidth="93.0" text="Emprunt id" />
-                        <TableColumn fx:id="titre" prefWidth="207.0" text="Titre" />
-                        <TableColumn fx:id="utilisateur" prefWidth="230.0" text="utilisateur" />
-                        <TableColumn fx:id="isbn" minWidth="0.0" prefWidth="75.0" text="isbn" />
-                        <TableColumn fx:id="date_emprunt" minWidth="9.4000244140625" prefWidth="180.0" text="Date emprunt" />
-                        <TableColumn fx:id="date_retour" minWidth="0.0" prefWidth="175.0" text="Date retour" />
-                        <TableColumn fx:id="status" prefWidth="77.0" text="statut" />
-                    </columns>
-                </TableView>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-            </children>
-        </VBox>
+      <HBox alignment="CENTER" prefHeight="590.0" prefWidth="1181.0" BorderPane.alignment="CENTER">
+         <children>
+              <VBox alignment="CENTER" prefHeight="590.0" prefWidth="1225.0">
+               <children>
+                  <HBox prefHeight="39.0" prefWidth="1039.0">
+                     <children>
+                        <Label prefHeight="33.0" prefWidth="142.0" text="Email Utilisateur :" />
+                        <ComboBox fx:id="email" prefHeight="34.0" prefWidth="283.0" />
+                        <Button mnemonicParsing="false" onAction="#showProfile" text="show profile">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <TextArea fx:id="info_" prefHeight="200.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextArea>
+                  <HBox prefHeight="31.0" prefWidth="977.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="147.0" text="Update Category :" />
+                        <ComboBox fx:id="catg" prefHeight="38.0" prefWidth="203.0" />
+                        <Button mnemonicParsing="false" onAction="#updateCatg" prefHeight="38.0" prefWidth="51.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox prefHeight="246.0" prefWidth="1039.0">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label prefHeight="38.0" prefWidth="178.0" text="Demandes d'emprunts :">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="table" prefHeight="200.0" prefWidth="685.0">
+                          <columns>
+                            <TableColumn fx:id="id_demande" prefWidth="126.0" text="id_demande" />
+                              <TableColumn fx:id="id_livre" prefWidth="117.0" text="id_livre" />
+                            <TableColumn fx:id="titre" prefWidth="385.0" text="Titre" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets right="400.0" />
+               </HBox.margin>
+              </VBox>
+         </children>
+      </HBox>
     </right>
 </BorderPane>

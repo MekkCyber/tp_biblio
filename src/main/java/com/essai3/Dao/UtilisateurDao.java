@@ -91,4 +91,58 @@ public class UtilisateurDao {
         return catg;
     }
 
+    public static Utilisateur findInfoUser(String email) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from utilisateur where email=?");
+        st.setString(1,email);
+        ResultSet rs = st.executeQuery();
+        Utilisateur user = new Utilisateur(rs.getInt("id"),rs.getString("nom"),rs.getString("prenom"),
+                email,"",rs.getString("catg"),rs.getString("date_premier_emprunt"));
+        rs.close();
+        st.close();
+        con.close();
+        return user;
+    }
+
+    public static ObservableList getEmails() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        ObservableList emails = FXCollections.observableArrayList();
+        PreparedStatement st = con.prepareStatement("select email from utilisateur ");
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            emails.add(rs.getString("email"));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return emails;
+    }
+
+    public static ObservableList getCatgs() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        ObservableList catgs = FXCollections.observableArrayList();
+        catgs.add("student");
+        catgs.add("novice_client");
+        catgs.add("notclient");
+        catgs.add("old_client");
+        catgs.add("regular_client");
+        return catgs;
+    }
+
+    public static void updateCatg(String catg , String email) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from utilisateur where email=?");
+        st.setString(1,email);
+        ResultSet rs = st.executeQuery();
+        int id = rs.getInt("id");
+        rs.close();
+        st.close();
+        PreparedStatement st_ = con.prepareStatement("update utilisateur set catg=? where id=?");
+        st_.setString(1,catg);
+        st_.setInt(2, id);
+        st_.executeUpdate();
+        st_.close();
+        con.close();
+    }
+
 }

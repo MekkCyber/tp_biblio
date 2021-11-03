@@ -62,7 +62,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Gérer les profils" />
+                        <Button mnemonicParsing="false" onAction="#gerer" text="Gérer les profils" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
