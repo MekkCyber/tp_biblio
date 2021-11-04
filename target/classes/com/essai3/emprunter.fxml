@@ -19,7 +19,7 @@
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
          <children>
             <Label prefHeight="21.0" prefWidth="29.0" text="id :" />
-            <ComboBox fx:id="id" prefHeight="31.0" prefWidth="40.0">
+            <ComboBox fx:id="id" prefHeight="31.0" prefWidth="64.0">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

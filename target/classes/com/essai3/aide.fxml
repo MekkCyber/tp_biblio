@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.essai3.AideController">
+    <top>
+        <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="35.0" prefWidth="200.0">
+                    <children>
+                        <HBox prefHeight="41.0" prefWidth="96.0">
+                            <HBox.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </HBox.margin>
+                        </HBox>
+                    </children>
+                </HBox>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="976.0" text="EasyBiblio">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox prefHeight="349.0" prefWidth="201.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" prefHeight="42.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Accueil" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="70.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#afficherLivres" text="Livres">
+                            <HBox.margin>
+                                <Insets top="5.0" />
+                            </HBox.margin></Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Aide">
+                            <HBox.margin>
+                                <Insets top="5.0" />
+                            </HBox.margin></Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#emprunter" text="emprunter">
+                            <HBox.margin>
+                                <Insets top="5.0" />
+                            </HBox.margin></Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="paramatres">
+                            <HBox.margin>
+                                <Insets top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#seDeconnecter" text="Se déconnercter">
+                            <HBox.margin>
+                                <Insets top="-250.0" />
+                            </HBox.margin></Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="200.0" />
+                    </VBox.margin>
+                </HBox>
+            </children></VBox>
+    </left>
+    <right>
+        <VBox prefHeight="496.0" prefWidth="1150.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="459.0" prefWidth="1114.0">
+               <children>
+                  <VBox prefHeight="459.0" prefWidth="600.0">
+                     <children>
+                        <HBox prefHeight="38.0" prefWidth="600.0">
+                           <children>
+                              <Label prefHeight="31.0" prefWidth="64.0" text="Auteur : " />
+                              <ComboBox fx:id="auteur" prefHeight="31.0" prefWidth="228.0" />
+                              <Button fx:id="cauteur" mnemonicParsing="false" onAction="#choisirAuteur" text="Choisir">
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="info" prefHeight="200.0" prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </TextArea>
+                        <Label prefHeight="39.0" prefWidth="341.0" text="Liste des oeuvres disponibles pour l'auteur choisi : " />
+                        <TableView fx:id="atable" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="aid" prefWidth="150.0" text="id_livre" />
+                            <TableColumn fx:id="atitre" prefWidth="449.0" text="Titre" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="459.0" prefWidth="500.0">
+                     <children>
+                        <HBox prefHeight="36.0" prefWidth="500.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="71.0" text="Editeur :" />
+                              <ComboBox fx:id="edition" prefHeight="34.0" prefWidth="214.0" />
+                              <Button fx:id="cedition" mnemonicParsing="false" onAction="#choisirEdition" text="Choisir">
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label prefHeight="43.0" prefWidth="313.0" text="Les oeuvres disponibles sous l'édition :">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TableView fx:id="etable" prefHeight="362.0" prefWidth="500.0">
+                          <columns>
+                            <TableColumn fx:id="eid" prefWidth="107.0" text="id du livre" />
+                            <TableColumn fx:id="etitre" prefWidth="309.0" text="Titre" />
+                              <TableColumn fx:id="isbn" prefWidth="83.0" text="isbn" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+        </VBox>
+    </right>
+</BorderPane>

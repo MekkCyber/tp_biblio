@@ -55,7 +55,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Aide">
+                        <Button mnemonicParsing="false" onAction="#aide" text="Aide">
                             <HBox.margin>
                                 <Insets top="5.0" />
                             </HBox.margin></Button>

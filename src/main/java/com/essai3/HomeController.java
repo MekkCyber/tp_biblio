@@ -182,7 +182,14 @@ public class HomeController {
         stage.show();
     }
 
-
+    public void aide() throws IOException {
+        Stage stage = (Stage) root.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("aide.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1300, 500);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
 }
 
 

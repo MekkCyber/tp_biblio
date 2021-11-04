@@ -7,6 +7,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class EmpruntDao {
@@ -64,4 +68,45 @@ public class EmpruntDao {
         return demandes;
     }
 
+    public static HashMap<String, String> getDemandeEmpruntById(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select * from demade_emprunt where id_demande=?");
+        ObservableList demandes = FXCollections.observableArrayList();
+        st.setInt(1,id);
+        ResultSet rs = st.executeQuery();
+        HashMap<String,String> emprunt = new HashMap<>();
+        java.util.Date date_emprunt = new java.util.Date();
+        java.util.Date date_retour = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(date_retour);
+        String catg = UtilisateurDao.findCatg(rs.getInt("id_utilisateur"));
+        switch (catg){
+            case "student":
+                c.add(Calendar.MONTH,2);
+            case "novice_client" :
+                c.add(Calendar.MONTH,1);
+            case "regular_client" :
+                c.add(Calendar.MONTH,2);
+            case "old_client" :
+                c.add(Calendar.MONTH,3);
+            case "notclient" :
+                c.add(Calendar.DATE,15);
+        }
+        emprunt.put("utilisateur_id",rs.getInt("id_utilisateur")+"");
+        emprunt.put("edition_id",LivreDao.findEditionIdsForLivre(rs.getInt("id_livre")).get(0)+"");
+        emprunt.put("date_emprunt",dateFormat.format(date_emprunt));
+        emprunt.put("date_retour",dateFormat.format(date_retour));
+        emprunt.put("status","no");
+        rs.close();
+        st.close();
+        con.close();
+        return emprunt;
+    }
+    public static void deleteDemandeEmprunt(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("delete from demade_emprunt where id_demande=?");
+        st.setInt(1,id);
+        st.executeUpdate();
+    }
 }

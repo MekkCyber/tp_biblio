@@ -1,9 +1,11 @@
 package com.essai3;
 
 import com.essai3.Dao.EmpruntDao;
+import com.essai3.Dao.Hash;
 import com.essai3.Dao.UtilisateurDao;
 import com.essai3.beans.DemandeEmprunt;
 import com.essai3.beans.Utilisateur;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +17,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GererProfilesController implements Initializable {
@@ -37,6 +41,8 @@ public class GererProfilesController implements Initializable {
     private TableColumn<DemandeEmprunt,String> date;
     @FXML
     private BorderPane root;
+    @FXML
+    private TextField id;
 
 
     @Override
@@ -147,6 +153,24 @@ public class GererProfilesController implements Initializable {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    public void addDemandeEmpruntToEmprunts() throws SQLException, ClassNotFoundException {
+        String id = this.id.getText();
+        HashMap<String,String> emprunt = EmpruntDao.getDemandeEmpruntById(Integer.parseInt(id));
+        EmpruntDao.addEmprunt(emprunt);
+        this.id.setText("");
+        EmpruntDao.deleteDemandeEmprunt(Integer.parseInt(id));
+        table.setItems(EmpruntDao.getDemandeEmpruntForUser((String) email.getValue()));
+    }
+
+    public void deleteUtilisateur() throws SQLException, ClassNotFoundException {
+        int id = UtilisateurDao.findUserId((String) this.email.getValue());
+        UtilisateurDao.deleteUser(id);
+        table.setItems(FXCollections.observableArrayList());
+        email.getItems().clear();
+        info_.setText("");
+
     }
 
 

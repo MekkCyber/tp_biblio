@@ -178,9 +178,10 @@ public class EmprunterLibrarianController implements Initializable {
         int user_id= UtilisateurDao.findUserId(email);
         int edition_id=LivreDao.findLivreEditionId(isbn);
         Date date_emprunt = new Date();
+        Date date_retour = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
-        c.setTime(date_emprunt);
+        c.setTime(date_retour);
         String catg = UtilisateurDao.findCatg(user_id);
         switch (catg){
             case "student":
@@ -195,7 +196,6 @@ public class EmprunterLibrarianController implements Initializable {
                 c.add(Calendar.DATE,15);
 
         }
-        Date date_retour = c.getTime();
         emprunt.put("utilisateur_id",user_id+"");
         emprunt.put("edition_id",edition_id+"");
         emprunt.put("date_emprunt",dateFormat.format(date_emprunt));
@@ -207,6 +207,11 @@ public class EmprunterLibrarianController implements Initializable {
 
     public void addInDb() throws NoSuchAlgorithmException, SQLException, ClassNotFoundException {
         EmpruntDao.addEmprunt(getEmpruntAdded());
+        nom.setText("");
+        prenom.setText("");
+        livre.getItems().clear();
+        isbn.getItems().clear();
+
     }
 
     public void returnLivre(){

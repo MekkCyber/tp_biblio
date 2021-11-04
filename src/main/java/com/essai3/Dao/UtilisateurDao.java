@@ -126,6 +126,7 @@ public class UtilisateurDao {
         catgs.add("notclient");
         catgs.add("old_client");
         catgs.add("regular_client");
+        con.close();
         return catgs;
     }
 
@@ -145,4 +146,12 @@ public class UtilisateurDao {
         con.close();
     }
 
+    public static void deleteUser(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("delete from utilisateur where id=?");
+        st.setInt(1,id);
+        st.executeUpdate();
+        st.close();
+        con.close();
+    }
 }

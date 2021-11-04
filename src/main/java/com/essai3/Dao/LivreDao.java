@@ -234,4 +234,19 @@ public class LivreDao {
         con.close();
         return titre;
     }
+
+    public static ArrayList findEditionIdsForLivre(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select edition_id from livre join edition on livre_id=livre.id where id=?");
+        st.setInt(1,id);
+        ArrayList<Integer> ids = new ArrayList<>();
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            ids.add(rs.getInt("edition_id"));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return ids;
+    }
 }
