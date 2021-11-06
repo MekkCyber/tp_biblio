@@ -41,7 +41,7 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="42.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false"  text="Accueil" />
+                        <Button mnemonicParsing="false" text="Accueil" />
                     </children>
                     <VBox.margin>
                         <Insets top="70.0" />
@@ -81,7 +81,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="38.0" prefWidth="201.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" onAction="#addLibrarianForm" prefWidth="117.0" text="Ajouter Admin" />
+                        <Button mnemonicParsing="false" onAction="#addLibrarianForm" prefHeight="31.0" prefWidth="117.0" text="Ajouter Admin" />
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -112,6 +112,11 @@
                 <HBox prefHeight="41.0" prefWidth="399.0">
                     <children>
                         <Label prefHeight="40.0" prefWidth="140.0" text="Liste des livres : " />
+                  <Button mnemonicParsing="false" onAction="#refresh" text="Refresh">
+                     <HBox.margin>
+                        <Insets left="810.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -131,7 +136,7 @@
                 </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="274.0" text="Ajouter un livre">
+                  <Button mnemonicParsing="false" onAction="#addLivre" prefHeight="34.0" prefWidth="274.0" text="Ajouter un livre">
                      <font>
                         <Font size="24.0" />
                      </font>

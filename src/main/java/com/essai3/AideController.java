@@ -117,7 +117,7 @@ public class AideController implements Initializable {
         etitre.setCellValueFactory(new PropertyValueFactory<Livre,String>("titre"));
         isbn.setCellValueFactory(new PropertyValueFactory<Livre,String>("isbn"));
         try {
-            atable.setItems(EditionDao.getLivresForEdition(edition));
+            etable.setItems(EditionDao.getLivresForEdition(edition));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

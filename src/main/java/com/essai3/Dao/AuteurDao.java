@@ -17,7 +17,7 @@ public class AuteurDao {
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("select nom,prenom from auteur");
         while (rs.next()) {
-            auteurs.add(rs.getString("nom")+" "+rs.getString("prenom"));
+            auteurs.add(rs.getString("nom").trim()+" "+rs.getString("prenom").trim());
         }
         rs.close();
         st.close();
@@ -28,13 +28,11 @@ public class AuteurDao {
     public static Auteur findAuteur(String nom_complet) throws SQLException, ClassNotFoundException {
         String[] list = nom_complet.split(" ");
         Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
-        PreparedStatement st = con.prepareStatement("select * from auteur where nom=? and prenom=?");
+        PreparedStatement st = con.prepareStatement("select id,date_naissance,TRIM(nom) as new_nom,TRIM(prenom) as new_prenom from auteur where new_nom=? and new_prenom=?");
         st.setString(1,list[0].trim());
         st.setString(2,list[1].trim());
         ResultSet rs = st.executeQuery();
-        Auteur auteur = new Auteur(0,0,"","");
-        auteur = new Auteur(rs.getInt("id"),rs.getInt("date_naissance"),rs.getString("nom"),rs.getString("prenom"));
-        System.out.println(rs.getInt("nom"));
+        Auteur auteur = new Auteur(rs.getInt("id"),rs.getInt("date_naissance"),rs.getString("new_nom"),rs.getString("new_prenom"));
         rs.close();
         st.close();
         con.close();
@@ -55,5 +53,27 @@ public class AuteurDao {
         st.close();
         con.close();
         return livres;
+    }
+
+    public static void addAuteur(Auteur auteur) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("insert into auteur (date_naissance,nom,prenom) values (?,?,?)");
+        st.setInt(1,auteur.getDate_naissance());
+        st.setString(2,auteur.getNom());
+        st.setString(3,auteur.getPrenom());
+        st.executeUpdate();
+        st.close();
+        con.close();
+    }
+
+    public static int getNumberAuteurs() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select seq from sqlite_sequence where name=\"auteur\"");
+        ResultSet rs = st.executeQuery();
+        int nombre = rs.getInt("seq");
+        rs.close();
+        st.close();
+        con.close();
+        return nombre;
     }
 }

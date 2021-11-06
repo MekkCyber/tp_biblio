@@ -135,5 +135,18 @@ public class HomeLibrarianController implements Initializable {
         stage.show();
     }
 
+    public void addLivre() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addLivre.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 650);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void refresh() throws SQLException, ClassNotFoundException {
+        table.setItems(LivreDao.getData());
+    }
+
 
 }

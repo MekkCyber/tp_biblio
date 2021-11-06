@@ -13,20 +13,15 @@ public class LivreDao {
 
     private static String SELECT_REQ = "SELECT livre.id, titre, quantite, mots_cles, parution, nom, prenom, editeur,isbn from livre join ecriture on ecriture.livre_id = livre.id join auteur on auteur.id = ecriture.auteur_id join edition on edition.livre_id=livre.id";
 
-    public static void addLivre() throws SQLException, ClassNotFoundException {
+    public static void addLivre(Livre livre) throws SQLException, ClassNotFoundException {
         Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
-//        PreparedStatement st = con.prepareStatement("insert into livre (titre,quantite,mots_cles,parution) values (?,?,?,?)");
-//        st.setString(1,livre.getTitre());
-//        st.setInt(2,livre.getQuantite());
-//        st.setString(3,livre.getMots_cles());
-//        st.setInt(4, livre.getParution());
-//        st.executeUpdate();
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("select * from livre");
-        while (rs.next()) {
-            System.out.println(rs.getString("titre"));
-        }
-        rs.close();
+        PreparedStatement st = con.prepareStatement("insert into livre (titre,quantite,mots_cles,parution) values (?,?,?,?)");
+        st.setString(1,livre.getTitre());
+        st.setInt(2,livre.getQuantite());
+        st.setString(3,livre.getMots_cles());
+        st.setInt(4, livre.getParution());
+        st.executeUpdate();
+        st.executeUpdate();
         st.close();
         con.close();
     }
@@ -248,5 +243,16 @@ public class LivreDao {
         st.close();
         con.close();
         return ids;
+    }
+
+    public static int getNumberLivres() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("select seq from sqlite_sequence where name=\"livre\"");
+        ResultSet rs = st.executeQuery();
+        int nombre = rs.getInt("seq");
+        rs.close();
+        st.close();
+        con.close();
+        return nombre;
     }
 }

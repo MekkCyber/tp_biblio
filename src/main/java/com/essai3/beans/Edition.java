@@ -6,7 +6,8 @@ public class Edition {
     int id, date,livre_id;
     String editeur, isbn;
 
-    public Edition(int date, int livre_id, String editeur, String isbn) {
+    public Edition(int id,int date, int livre_id, String editeur, String isbn) {
+        this.id=id;
         this.date = date;
         this.livre_id = livre_id;
         this.editeur = editeur;

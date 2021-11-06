@@ -3,6 +3,7 @@ module com.essai3 {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.sql;
+    requires java.mail;
 
 
     opens com.essai3 to javafx.fxml;
