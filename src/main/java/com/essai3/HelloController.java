@@ -1,5 +1,6 @@
 package com.essai3;
 
+import com.essai3.Dao.ListeRougeDao;
 import com.essai3.Dao.LivreDao;
 import com.essai3.Dao.UtilisateurDao;
 import com.essai3.beans.Emprunt;
@@ -83,6 +84,7 @@ public class HelloController {
         String email = this.email.getText();
         String passwdhash = this.pwd.getText();
         if (UtilisateurDao.authenticateUser(email, passwdhash) != null) {
+            if(!ListeRougeDao.userBanned(email)){
 //            HomeController controller = new HomeController();
 //            email_ = UtilisateurDao.authenticateUser(email, passwdhash).get(3);
 //            System.out.println(email_);
@@ -124,14 +126,26 @@ public class HelloController {
             return UtilisateurDao.authenticateUser(email, passwdhash);
 
         } else {
-            Stage stage_ = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("incorrect.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 492, 160);
-            stage_.setScene(scene);
-            stage_.centerOnScreen();
-            stage_.show();
-            return null;
+                Stage stage_ = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("banned.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 492, 160);
+                BannedController controller = fxmlLoader.getController();
+                controller.setDate(ListeRougeDao.dateFin(email));
+                stage_.setScene(scene);
+                stage_.centerOnScreen();
+                stage_.show();
+                return null;
         }
+        }
+        else {
+                Stage stage_ = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("incorrect.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 492, 160);
+                stage_.setScene(scene);
+                stage_.centerOnScreen();
+                stage_.show();
+                return null;
+            }
     }
 
 

@@ -39,7 +39,7 @@ public class AddLivreController {
     public Auteur getAuteur(){
         String nom_complet = this.auteur.getText();
         String nom = nom_complet.split(" ")[0];
-        String prenom = nom_complet.split(" ")[0];
+        String prenom = nom_complet.split(" ")[1];
         return new Auteur(200,0,nom,prenom);
     }
     public Edition getEdition() throws SQLException, ClassNotFoundException {

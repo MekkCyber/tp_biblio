@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -37,7 +39,15 @@ public class EmpruntsController implements Initializable {
     @FXML
     private TableColumn<Emprunt,String> isbn;
     @FXML
-    private TableColumn<Emprunt,Integer> emprunt_id;
+    private TableColumn<Emprunt,String> emprunt_id;
+    @FXML
+    private ToggleGroup gr;
+    @FXML
+    private ToggleButton all;
+    @FXML
+    private ToggleButton yes;
+    @FXML
+    private ToggleButton no;
 
     public void getLivres() throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
@@ -97,13 +107,14 @@ public class EmpruntsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        emprunt_id.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("eid"));
         titre.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("titre"));
         isbn.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("isbn"));
         status.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("status"));
         date_emprunt.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_emprunt"));
         date_retour.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("date_retour"));
         utilisateur.setCellValueFactory(new PropertyValueFactory<Emprunt,String>("auteur"));
-        emprunt_id.setCellValueFactory(new PropertyValueFactory<Emprunt,Integer>("emprunt_id"));
+
         try {
             table.setItems(EmpruntDao.showEmprunts());
         } catch (SQLException e) {
@@ -121,4 +132,15 @@ public class EmpruntsController implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
+
+    public void allStatus() throws SQLException, ClassNotFoundException {
+        table.setItems(EmpruntDao.showEmprunts());
+    }
+    public void yesStatus() throws SQLException, ClassNotFoundException {
+        table.setItems(EmpruntDao.showYesEmprunts());
+    }
+    public void noStatus() throws SQLException, ClassNotFoundException {
+        table.setItems(EmpruntDao.showNoEmprunts());
+    }
+
 }

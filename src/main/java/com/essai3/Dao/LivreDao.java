@@ -83,7 +83,7 @@ public class LivreDao {
             if (!already_treated_books.contains(rs.getString("isbn"))) {
                 livres.add(new Emprunt(rs.getInt("id"), rs.getString("titre"), rs.getInt("quantite"),
                         rs.getString("mots_cles"), rs.getInt("parution"), rs.getString("nom") + " " + rs.getString("prenom"),
-                        rs.getString("editeur"), rs.getString("isbn"),rs.getInt("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+                        rs.getString("editeur"), rs.getString("isbn"),rs.getString("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
                 already_treated_books.add(rs.getString("isbn"));
             } else {
 

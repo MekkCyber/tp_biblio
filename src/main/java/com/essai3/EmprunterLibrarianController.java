@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -56,6 +53,8 @@ public class EmprunterLibrarianController implements Initializable {
     private ComboBox livre;
     @FXML
     private ComboBox livre_;
+    @FXML
+    private TextField id_;
 
     public void getLivres() throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
@@ -178,10 +177,10 @@ public class EmprunterLibrarianController implements Initializable {
         int user_id= UtilisateurDao.findUserId(email);
         int edition_id=LivreDao.findLivreEditionId(isbn);
         Date date_emprunt = new Date();
-        Date date_retour = new Date();
+        Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
-        c.setTime(date_retour);
+        c.setTime(date);
         String catg = UtilisateurDao.findCatg(user_id);
         switch (catg){
             case "student":
@@ -196,6 +195,7 @@ public class EmprunterLibrarianController implements Initializable {
                 c.add(Calendar.DATE,15);
 
         }
+        Date date_retour = c.getTime();
         emprunt.put("utilisateur_id",user_id+"");
         emprunt.put("edition_id",edition_id+"");
         emprunt.put("date_emprunt",dateFormat.format(date_emprunt));
@@ -210,11 +210,25 @@ public class EmprunterLibrarianController implements Initializable {
         nom.setText("");
         prenom.setText("");
         livre.getItems().clear();
+        livre.getItems().addAll(LivreDao.getLivresDisponibles());
         isbn.getItems().clear();
+        isbn.getItems().addAll(LivreDao.getIsbns());
 
     }
 
-    public void returnLivre(){
-
+    public void returnLivre() throws SQLException, ClassNotFoundException {
+        String nom = this.nom_.getText();
+        String prenom = this.prenom_.getText();
+        String id = this.id_.getText();
+        EmpruntDao.changeStatutEmprunt(Integer.parseInt(id));
+        nom_.setText("");
+        prenom_.setText("");
+        id_.setText("");
+        isbn_.getItems().clear();
+        livre_.getItems().clear();
+        livre_.getItems().addAll(LivreDao.getLivresTitres());
+        isbn_.getItems().addAll(LivreDao.getIsbns());
     }
+
+
 }

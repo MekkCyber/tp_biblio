@@ -138,7 +138,7 @@ public class HomeLibrarianController implements Initializable {
     public void addLivre() throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addLivre.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 650);
+        Scene scene = new Scene(fxmlLoader.load(), 310, 460);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();

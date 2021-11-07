@@ -21,7 +21,37 @@ public class EmpruntDao {
         ResultSet rs = st.executeQuery("select utilisateur.nom,utilisateur.prenom,livre.titre,isbn,date_emprunt,date_retour,status,emprunt.emprunt_id from emprunt join utilisateur on utilisateur.id=utilisateur_id join edition on edition.edition_id=emprunt.edition_id join livre on livre.id=edition.livre_id");
         while (rs.next()) {
             emprunts.add(new Emprunt(0, rs.getString("titre"),0, "", 0, rs.getString("nom") + " " + rs.getString("prenom"),
-                    "", rs.getString("isbn"),rs.getInt("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+                    "", rs.getString("isbn"),rs.getString("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return emprunts;
+    }
+
+    public static ObservableList<Emprunt> showNoEmprunts() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        Statement st = con.createStatement();
+        ObservableList emprunts = FXCollections.observableArrayList();
+        ResultSet rs = st.executeQuery("select utilisateur.nom,utilisateur.prenom,livre.titre,isbn,date_emprunt,date_retour,status,emprunt.emprunt_id from emprunt join utilisateur on utilisateur.id=utilisateur_id join edition on edition.edition_id=emprunt.edition_id join livre on livre.id=edition.livre_id where status=\"no\"");
+        while (rs.next()) {
+            emprunts.add(new Emprunt(0, rs.getString("titre"),0, "", 0, rs.getString("nom") + " " + rs.getString("prenom"),
+                    "", rs.getString("isbn"),rs.getString("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
+        }
+        rs.close();
+        st.close();
+        con.close();
+        return emprunts;
+    }
+
+    public static ObservableList<Emprunt> showYesEmprunts() throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        Statement st = con.createStatement();
+        ObservableList emprunts = FXCollections.observableArrayList();
+        ResultSet rs = st.executeQuery("select utilisateur.nom,utilisateur.prenom,livre.titre,isbn,date_emprunt,date_retour,status,emprunt.emprunt_id from emprunt join utilisateur on utilisateur.id=utilisateur_id join edition on edition.edition_id=emprunt.edition_id join livre on livre.id=edition.livre_id where status=\"yes\"");
+        while (rs.next()) {
+            emprunts.add(new Emprunt(0, rs.getString("titre"),0, "", 0, rs.getString("nom") + " " + rs.getString("prenom"),
+                    "", rs.getString("isbn"),rs.getString("emprunt_id"),0,0,rs.getString("date_emprunt"),rs.getString("date_retour"),rs.getString("status")));
         }
         rs.close();
         st.close();
@@ -34,8 +64,8 @@ public class EmpruntDao {
         PreparedStatement st = con.prepareStatement("insert into emprunt (utilisateur_id,edition_id,date_retour,date_emprunt,status) values(?,?,?,?,?)");
         st.setInt(1,Integer.parseInt(emprunt.get("utilisateur_id")));
         st.setInt(2,Integer.parseInt(emprunt.get("edition_id")));
-        st.setString(3,emprunt.get("date_emprunt"));
-        st.setString(4,emprunt.get("date_retour"));
+        st.setString(4,emprunt.get("date_emprunt"));
+        st.setString(3,emprunt.get("date_retour"));
         st.setString(5,emprunt.get("status"));
         st.executeUpdate();
         st.close();
@@ -108,5 +138,16 @@ public class EmpruntDao {
         PreparedStatement st = con.prepareStatement("delete from demade_emprunt where id_demande=?");
         st.setInt(1,id);
         st.executeUpdate();
+        st.close();
+        con.close();
+    }
+
+    public static void changeStatutEmprunt(int id) throws SQLException, ClassNotFoundException {
+        Connection con = (new Db("jdbc:sqlite:D:\\Coding\\Projets\\java\\tp\\Essai3\\src\\main\\java\\com\\essai3\\Dao\\biblio.db").getConnection());
+        PreparedStatement st = con.prepareStatement("update emprunt set status=\"yes\"where emprunt_id=?");
+        st.setInt(1,id);
+        st.executeUpdate();
+        st.close();
+        con.close();
     }
 }

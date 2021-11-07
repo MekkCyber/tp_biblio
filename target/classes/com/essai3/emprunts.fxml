@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -123,7 +126,27 @@
                         <TableColumn fx:id="status" prefWidth="77.0" text="statut" />
                     </columns>
                 </TableView>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <RadioButton fx:id="all" mnemonicParsing="true" onAction="#allStatus" text="All">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="gr" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="yes" mnemonicParsing="false" onAction="#yesStatus" text="Yes Status" toggleGroup="$gr">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="no" mnemonicParsing="false" onAction="#noStatus" text="No Status" toggleGroup="$gr">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children></HBox>
             </children>
         </VBox>
     </right>

@@ -2,8 +2,10 @@ package com.essai3;
 
 import com.essai3.Dao.EmpruntDao;
 import com.essai3.Dao.Hash;
+import com.essai3.Dao.ListeRougeDao;
 import com.essai3.Dao.UtilisateurDao;
 import com.essai3.beans.DemandeEmprunt;
+import com.essai3.beans.ListeRouge;
 import com.essai3.beans.Utilisateur;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,11 +16,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -43,6 +49,10 @@ public class GererProfilesController implements Initializable {
     private BorderPane root;
     @FXML
     private TextField id;
+    @FXML
+    private DatePicker date1;
+    @FXML
+    private DatePicker date2;
 
 
     @Override
@@ -61,6 +71,49 @@ public class GererProfilesController implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        date1.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            {
+                date1.setPromptText(pattern.toLowerCase());
+            }
+            @Override public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+        date2.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            {
+                date2.setPromptText(pattern.toLowerCase());
+            }
+            @Override public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+
 
     }
     public void showProfile() throws SQLException, ClassNotFoundException {
@@ -72,7 +125,10 @@ public class GererProfilesController implements Initializable {
                     "Prenom : "+user.getPrenom()+"\n"+
                     "email : "+user.getEmail()+"\n"+
                     "Catégorie : "+ user.getCatg()+"\n"+
-                    "Date du premier emprunt : "+date_premier_emprunt);
+                    "Date du premier emprunt : "+date_premier_emprunt+"\n"+
+                    "Utilisateur banni : "+ ListeRougeDao.userBanned(email)+"\n"+
+                    "Date début du bannissement : "+ListeRougeDao.dateDebut(email)+"\n"+
+                    "Date fin du bannissement : "+ListeRougeDao.dateFin(email));
         id_demande.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,Integer>("id_demande"));
         id_livre.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,Integer>("id_utilisateur"));
         titre.setCellValueFactory(new PropertyValueFactory<DemandeEmprunt,String>("titre"));
@@ -167,10 +223,19 @@ public class GererProfilesController implements Initializable {
     public void deleteUtilisateur() throws SQLException, ClassNotFoundException {
         int id = UtilisateurDao.findUserId((String) this.email.getValue());
         UtilisateurDao.deleteUser(id);
-        table.setItems(FXCollections.observableArrayList());
         email.getItems().clear();
+        email.getItems().addAll(UtilisateurDao.getEmails());
+        table.setItems(FXCollections.observableArrayList());
         info_.setText("");
 
+    }
+
+    public void addToRedList() throws SQLException, ClassNotFoundException {
+        String date1 = String.valueOf(this.date1.getValue());
+        String date2 = String.valueOf(this.date2.getValue());
+        String email = (String) this.email.getValue();
+        int id = UtilisateurDao.findUserId(email);
+        ListeRougeDao.addToRedList(new ListeRouge(id,date1,date2));
     }
 
 

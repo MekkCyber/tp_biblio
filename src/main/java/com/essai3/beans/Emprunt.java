@@ -5,16 +5,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
 public class Emprunt extends Livre{
-    private SimpleIntegerProperty emprunt_id;
+    private SimpleStringProperty eid;
     private SimpleIntegerProperty edition_id;
     private SimpleIntegerProperty utilisateur_id;
     private SimpleStringProperty date_emprunt;
     private SimpleStringProperty date_retour;
     private SimpleStringProperty status;
 
-    public  Emprunt(int id, String titre, int quantite, String mots_cles, int parution, String auteur, String edition, String isbn, int emprunt_id, Integer edition_id, Integer utilisateur_id, String date_emprunt, String date_retour, String status){
+    public  Emprunt(int id, String titre, int quantite, String mots_cles, int parution, String auteur, String edition, String isbn, String eid, Integer edition_id, Integer utilisateur_id, String date_emprunt, String date_retour, String status){
         super(id,titre,quantite,mots_cles,parution,auteur,edition,isbn);
-        this.emprunt_id = new SimpleIntegerProperty(emprunt_id);
+        this.eid = new SimpleStringProperty(eid);
         this.edition_id = new SimpleIntegerProperty(edition_id);
         this.utilisateur_id = new SimpleIntegerProperty(utilisateur_id);
         this.date_emprunt = new SimpleStringProperty(date_emprunt);
@@ -22,17 +22,16 @@ public class Emprunt extends Livre{
         this.status = new SimpleStringProperty(status);
     }
 
-    public int getId() {
-        return emprunt_id.get();
-
+    public String getEid() {
+        return eid.get();
     }
 
-    public SimpleIntegerProperty idProperty() {
-        return emprunt_id;
+    public SimpleStringProperty eidProperty() {
+        return eid;
     }
 
-    public void setId(int id) {
-        this.emprunt_id.set(id);
+    public void setEid(String eid) {
+        this.eid.set(eid);
     }
 
     public int getEdition_id() {
